@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ff5f6d,#ffc371);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+}
+
+/* INTRO SCREEN */
+
+#intro{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#ff5f6d,#ffc371);
+z-index:10;
+}
+
+#heartBtn{
+font-size:26px;
+padding:20px 40px;
+border:none;
+border-radius:50px;
+background:white;
+color:#ff4d6d;
+cursor:pointer;
+box-shadow:0 0 25px rgba(0,0,0,0.3);
+transition:transform 0.3s;
+}
+
+#heartBtn:hover{
+transform:scale(1.1);
+}
+
+/* MAIN PAGE */
+
+#main{
+display:none;
+width:100%;
+height:100%;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+h1{
+font-size:48px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 35px #ff004c;}
+}
+
+.message{
+font-size:24px;
+max-width:900px;
+min-height:120px;
+margin:20px;
+}
+
+.gallery{
+width:95vw;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+}
+
+.gallery img{
+width:100%;
+height:45vh;
+object-fit:contain;
+border-radius:15px;
+background:rgba(0,0,0,0.2);
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+/* HEART FLOAT */
+
+.heart{
+position:absolute;
+font-size:24px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-120vh);}
+}
+
+/* ROSE PETALS */
+
+.petal{
+position:absolute;
+font-size:18px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+<h1>💖 A Surprise For You 💖</h1>
+<button id="heartBtn">Open My Heart ❤️</button>
+</div>
+
+<div id="main">
+
+<h1>💖 To My Beautiful Wife 💖</h1>
+
+<div class="message" id="typeText"></div>
+
+<div class="gallery">
+<img id="img1">
+<img id="img2">
+<img id="img3">
+<img id="img4">
+</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5e0a7a7bcb.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* OPEN HEART BUTTON */
+
+document.getElementById("heartBtn").onclick=function(){
+
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="flex";
+
+document.getElementById("music").play();
+
+startAnimations();
+
+}
+
+/* TYPING MESSAGE */
+
+const text = `
+You are not just my wife,
+you are my best friend, my happiness, my peace and my forever home.
+
+Every moment with you becomes a beautiful memory
+and every day I spend with you feels like a blessing.
+
+Thank you for filling my life with love, laughter and endless happiness.
+
+No matter where life takes us,
+my heart will always belong to you.
+
+I Love You Forever ❤️
+`;
+
+let i=0;
+
+function typeWriter(){
+if(i < text.length){
+document.getElementById("typeText").innerHTML += text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+/* RANDOM PHOTOS */
+
+const photos=["p1.jpg","p2.jpg","p3.jpg","p4.jpg","p5.jpg","p6.jpg"];
+
+function getRandomPhotos(){
+
+let shuffled=[...photos].sort(()=>0.5-Math.random());
+
+img1.src=shuffled[0];
+img2.src=shuffled[1];
+img3.src=shuffled[2];
+img4.src=shuffled[3];
+
+}
+
+function startAnimations(){
+
+typeWriter();
+
+getRandomPhotos();
+setInterval(getRandomPhotos,4000);
+
+setInterval(createHeart,300);
+setInterval(createPetal,500);
+
+}
+
+/* HEARTS */
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(Math.random()*3+4)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+}
+
+/* PETALS */
+
+function createPetal(){
+
+const petal=document.createElement("div");
+
+petal.classList.add("petal");
+petal.innerHTML="🌹";
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(Math.random()*5+5)+"s";
+
+document.body.appendChild(petal);
+
+setTimeout(()=>petal.remove(),9000);
+
+}
+
+</script>
+
+</body>
+</html>
